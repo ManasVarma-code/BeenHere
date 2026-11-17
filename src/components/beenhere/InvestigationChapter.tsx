@@ -4,283 +4,249 @@ import {
   CheckCircle2,
   ChevronRight,
   FileCode2,
-  Layers,
-  Scale,
-  Search,
+  FileText,
+  Info,
   ShieldAlert,
-  Sparkles,
 } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 
-interface DossierNode {
-  step: string;
+interface ResearchStep {
+  id: string;
   category: string;
   title: string;
-  verdict: string;
-  narrative: string;
-  evidence: {
-    name: string;
-    badge: string;
-    annotation: string;
-  }[];
+  summary: string;
+  evidenceLabel: string;
+  evidence: string[];
+  note: string;
+  source: string;
 }
 
-const INVESTIGATION_NODES: DossierNode[] = [
+const steps: ResearchStep[] = [
   {
-    step: "01",
-    category: "THE INQUIRY",
-    title: "Initial Developer Hypothesis",
-    verdict: "Scope assumed: Full bespoke ATS from scratch",
-    narrative:
-      "A developer intends to build an AI-powered resume screening, extraction, and candidate matching application. The default impulse is to construct an entire end-to-end Applicant Tracking System (ATS)—database, candidate pipeline, job posting portal, and recruiter UI.",
-    evidence: [
-      {
-        name: "User Prompt",
-        badge: "Inquiry Input",
-        annotation:
-          "Research technical viability and reusable prior art for an AI recruitment platform.",
-      },
-      {
-        name: "Baseline Cost",
-        badge: "Assumption",
-        annotation:
-          "Estimated 9–12 months to build database, security permissions, and pipeline UI.",
-      },
-    ],
+    id: "idea",
+    category: "THE IDEA",
+    title: "Voice-first social platform",
+    summary:
+      "The repository example investigates a social product where people debate ideas with several AI personas in real time.",
+    evidenceLabel: "REPORT INPUT · IDEA LANDSCAPE",
+    evidence: ["Full-duplex voice", "Persona memory", "Multi-agent conversation"],
+    note: "The idea and problem framing are from the included report. They are not presented as a v1.1 execution log.",
+    source: SITE_CONFIG.links.exampleLandscape,
   },
   {
-    step: "02",
-    category: "EXISTING PRECEDENTS",
-    title: "Surveying Incumbent ATS Platforms",
-    verdict: "Market Reality: Deep customer switching barriers",
-    narrative:
-      "Investigation reveals an entrenched commercial landscape. Ashby, Greenhouse, and Lever dominate modern hiring. Recruiting teams have strict compliance workflows, historic audit records, and zero appetite to migrate to a new core ATS. The real friction point isn't ATS workflows—it is candidate review efficiency.",
+    id: "solutions",
+    category: "EXISTING SOLUTIONS",
+    title: "Find components with distinct jobs",
+    summary:
+      "The report identifies separate foundations instead of treating one repository as a complete product.",
+    evidenceLabel: "REPORT CANDIDATES · SOURCE LABELS IN BLUEPRINT",
     evidence: [
-      {
-        name: "Ashby",
-        badge: "Modern ATS Benchmark",
-        annotation: "Extensive webhooks and candidate automation APIs; high customer retention.",
-      },
-      {
-        name: "Greenhouse / Lever",
-        badge: "Enterprise Incumbents",
-        annotation:
-          "Deep enterprise integrations and regulatory audit trails make replacement unviable.",
-      },
+      "pipecat-ai/pipecat — voice pipeline · BSD-2-Clause",
+      "letta-ai/letta — stateful memory · Apache-2.0",
+      "a16z-infra/ai-town — social conversation engine · MIT",
     ],
+    note: "These candidates and license labels appear in the repository example. Recheck upstream versions and terms before adoption.",
+    source: SITE_CONFIG.links.exampleBlueprint,
   },
   {
-    step: "03",
-    category: "REUSABLE CODE",
-    title: "Candidate Open-Source Components",
-    verdict: "Foundations Identified: Zero need for custom PDF regex",
-    narrative:
-      "Instead of writing fragile PDF parsing scripts or training proprietary embedding models, BeenHere identifies production-tested, permissively licensed open-source foundations ready for immediate integration.",
+    id: "cross-industry",
+    category: "CROSS-INDUSTRY FINDINGS",
+    title: "Look for mechanisms, not metaphors",
+    summary:
+      "For conversation turn arbitration, the report explores ideas outside social software and distinguishes inspiration from reusable code.",
+    evidenceLabel: "CONCEPTUAL INSPIRATION · NO CODE TRANSFER CLAIMED",
     evidence: [
-      {
-        name: "Docling (IBM)",
-        badge: "MIT License · Code",
-        annotation:
-          "Layout-aware document parser specializing in complex multi-column resumes and tables.",
-      },
-      {
-        name: "Sentence Transformers",
-        badge: "Apache 2.0 · Embeddings",
-        annotation:
-          "Pretrained dense vectors and cross-encoders (e.g. bge-reranker) for semantic candidate ranking.",
-      },
+      "Façade — beat-based drama management",
+      "Avionics — priority arbitration",
+      "Computer architecture — speculative pre-computation",
     ],
+    note: "The report describes these as conceptual inspiration; it does not claim executable components were transferred from those fields.",
+    source: SITE_CONFIG.links.exampleLandscape,
   },
   {
-    step: "04",
-    category: "LICENSING CHECKPOINTS",
-    title: "Hazard Detection: Legal & Regulatory Traps",
-    verdict: "Checkpoint Triggered: AGPL Copyleft Risk Identified",
-    narrative:
-      "Standard LLM code generation often imports PyMuPDF for PDF extraction. BeenHere flags a critical hazard: PyMuPDF is dual-licensed under AGPL-3.0 and commercial terms. Deploying it in a proprietary SaaS triggers viral copyleft obligations. Additionally, NYC Local Law 144 and EEOC guidelines require strict bias auditability for automated hiring tools.",
+    id: "comparison",
+    category: "REPOSITORY COMPARISON",
+    title: "Check fit, interfaces, and boundaries",
+    summary:
+      "The blueprint compares the candidates by role and verified interface evidence, then records where adopting a whole project creates coupling.",
+    evidenceLabel: "BLUEPRINT · [VERIFIED-SOURCE]",
     evidence: [
-      {
-        name: "PyMuPDF (AGPL-3.0)",
-        badge: "Critical License Flag",
-        annotation:
-          "Avoid AGPL viral license in commercial apps. Substitute with pdfplumber or native Docling parsers.",
-      },
-      {
-        name: "NYC Local Law 144 / EEOC",
-        badge: "Regulatory Checkpoint",
-        annotation:
-          "LLM scoring requires deterministic audit logging to pass mandatory bias assessments.",
-      },
+      "Pipecat — pipeline interfaces in src/pipecat/pipeline/pipeline.py",
+      "Letta — client API and local app server",
+      "AI Town — conversation state; Convex coupling is a qualification",
     ],
+    note: "“Verified source” describes the report’s source inspection. It is not a guarantee of compatibility with your application.",
+    source: SITE_CONFIG.links.exampleBlueprint,
+  },
+  {
+    id: "recommendation",
+    category: "ENGINEERING RECOMMENDATION",
+    title: "Integrate foundations. Build the missing layer.",
+    summary:
+      "The included blueprint recommends adopting a voice pipeline, integrating memory through an API, extracting a conversation-state pattern, and building the platform-specific controller.",
+    evidenceLabel: "ADVISORY BLUEPRINT · VALIDATE IN YOUR STACK",
+    evidence: [
+      "Adopt the Pipecat pipeline role",
+      "Integrate Letta through its API",
+      "Extract AI Town’s state pattern; build the floor controller",
+    ],
+    note: "This is the example report’s proposed direction. Its integration contracts and verification steps still need project-specific review.",
+    source: SITE_CONFIG.links.exampleBlueprint,
   },
 ];
 
 export function InvestigationChapter() {
-  const [activeStep, setActiveStep] = useState<number>(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const active = steps[activeStep]!;
 
   return (
-    <section
-      className="bh-case-study"
-      id="investigation"
-      aria-labelledby="investigation-title"
-    >
-      {/* Chapter Marker */}
+    <section className="bh-case-study" id="investigation" aria-labelledby="investigation-title">
       <div className="flex items-center justify-between pb-8 border-b border-border text-[11px] font-mono text-muted-foreground uppercase tracking-widest">
         <span className="flex items-center gap-2">
           <span className="text-primary font-bold">02</span>
-          <span className="text-foreground">A real research run</span>
+          <span className="text-foreground">A repository example</span>
         </span>
-        <div className="flex items-center gap-2 text-foreground font-semibold">
-          <span>CODEX</span>
-          <span className="text-primary">·</span>
-          <span>RECRUITMENT PLATFORM</span>
-        </div>
+        <span className="font-semibold text-foreground">VOICE-FIRST SOCIAL PLATFORM</span>
       </div>
 
-      {/* Chapter Intro */}
       <div className="py-12 max-w-3xl space-y-4">
         <span className="font-mono text-xs uppercase tracking-wider text-primary font-bold">
-          RECRUITMENT PLATFORM · CASE STUDY
+          IDEA LANDSCAPE → INTEGRATION BLUEPRINT
         </span>
         <h2
           id="investigation-title"
           className="font-editorial text-4xl sm:text-5xl lg:text-6xl text-foreground font-normal leading-tight"
         >
-          From broad idea<br />to buildable plan.
+          From question
+          <br />
+          to engineering direction.
         </h2>
         <p className="font-sans text-base text-foreground/80 leading-relaxed">
-          See how BeenHere moves from an AI recruitment idea through market context, reusable code,
-          and a licensing check to a focused technical decision.
+          Follow the included voice-first platform report from its initial idea through
+          cross-industry leads, repository comparison, and a proposed integration plan.
+        </p>
+        <p className="bh-report-disclosure">
+          Source note: this example report is dated 12–13 Nov 2026 and identifies itself as a
+          BeenHere v0.2.0 report. The page summarizes that repository artifact; it is not a v1.1
+          run.
         </p>
       </div>
 
-      {/* Interactive Vertical Timeline Spread */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-4">
-        {/* Navigation Selector */}
         <div className="lg:col-span-4 space-y-3">
           <div className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest pb-2 border-b border-border">
-            RESEARCH STEPS
+            IDEA → SOLUTIONS → COMPARISON → DECISION
           </div>
           <div
             className="space-y-1.5"
             role="tablist"
-            aria-label="Investigation chronological steps"
+            aria-label="Repository example research steps"
           >
-            {INVESTIGATION_NODES.map((node, index) => {
-              const isSelected = activeStep === index;
-              return (
-                <button
-                  key={node.step}
-                  role="tab"
-                  aria-selected={isSelected}
-                  onClick={() => setActiveStep(index)}
-                  className={`w-full text-left p-3.5 rounded-xs border transition-all cursor-pointer font-mono text-xs flex items-center justify-between ${
-                    isSelected
-                      ? "border-primary bg-card shadow-xs text-foreground font-bold"
-                      : "border-transparent hover:border-border/60 hover:bg-muted/40 text-muted-foreground"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className={isSelected ? "text-primary" : "text-muted-foreground"}>
-                      {node.step}
-                    </span>
-                    <span>{node.category}</span>
-                  </div>
-                  {isSelected && (
-                    <ChevronRight className="size-3.5 text-primary" aria-hidden="true" />
-                  )}
-                </button>
-              );
-            })}
+            {steps.map((step, index) => (
+              <button
+                key={step.id}
+                id={`research-step-${step.id}`}
+                type="button"
+                role="tab"
+                aria-selected={activeStep === index}
+                aria-controls="research-step-panel"
+                onClick={() => setActiveStep(index)}
+                className={`w-full text-left p-3.5 rounded-xs border transition-colors cursor-pointer font-mono text-xs flex items-center justify-between ${
+                  activeStep === index
+                    ? "border-primary bg-card shadow-xs text-foreground font-bold"
+                    : "border-transparent hover:border-border/60 hover:bg-muted/40 text-muted-foreground"
+                }`}
+              >
+                <span className="flex items-center gap-3">
+                  <span className={activeStep === index ? "text-primary" : "text-muted-foreground"}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span>{step.category}</span>
+                </span>
+                {activeStep === index && (
+                  <ChevronRight className="size-3.5 text-primary" aria-hidden="true" />
+                )}
+              </button>
+            ))}
           </div>
-
-          <div className="pt-6 border-t border-border font-mono text-[10px] text-muted-foreground space-y-2">
-            <div className="text-foreground font-semibold">RUN THE FULL EXAMPLE</div>
-            <p className="text-muted-foreground leading-normal font-sans text-xs">
-              This walkthrough follows an executed Codex run, with the full log available in the repository.
-            </p>
+          <div className="pt-5 border-t border-border flex flex-col gap-2 text-xs font-mono">
             <a
-              href={SITE_CONFIG.links.codexTestEvidence}
+              className="inline-flex items-center gap-1 text-primary hover:underline"
+              href={SITE_CONFIG.links.exampleLandscape}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-primary hover:underline font-mono text-[10px] pt-1"
             >
-              Read the full test log <ArrowUpRight className="size-3" aria-hidden="true" />
+              Open the idea landscape <ArrowUpRight className="size-3" aria-hidden="true" />
+            </a>
+            <a
+              className="inline-flex items-center gap-1 text-primary hover:underline"
+              href={SITE_CONFIG.links.exampleBlueprint}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open the integration blueprint <ArrowUpRight className="size-3" aria-hidden="true" />
             </a>
           </div>
         </div>
 
-        {/* Active Node Detail Card */}
-        <div className="lg:col-span-8 border border-border bg-card p-6 md:p-8 rounded-xs space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-border">
+        <div
+          id="research-step-panel"
+          role="tabpanel"
+          aria-labelledby={`research-step-${active.id}`}
+          className="lg:col-span-8 border border-border bg-card p-6 md:p-8 rounded-xs space-y-6 min-w-0"
+        >
+          <div className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-border">
             <div className="space-y-1">
               <span className="font-mono text-[10px] text-primary uppercase font-bold tracking-wider">
-                STAGE {INVESTIGATION_NODES[activeStep]!.step} //{" "}
-                {INVESTIGATION_NODES[activeStep]!.category}
+                STEP {String(activeStep + 1).padStart(2, "0")} // {active.category}
               </span>
               <h3 className="font-editorial text-2xl sm:text-3xl font-normal text-foreground">
-                {INVESTIGATION_NODES[activeStep]!.title}
+                {active.title}
               </h3>
             </div>
-            <span className="font-mono text-[10px] px-2.5 py-1 bg-background border border-border text-foreground font-semibold rounded-xs">
-              {INVESTIGATION_NODES[activeStep]!.verdict}
-            </span>
+            <a
+              href={active.source}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-mono text-[10px] text-primary hover:underline"
+            >
+              <FileText className="size-3" aria-hidden="true" /> Source file{" "}
+              <ArrowUpRight className="size-3" aria-hidden="true" />
+            </a>
           </div>
 
-          <p className="font-sans text-sm sm:text-base text-foreground/90 leading-relaxed">
-            {INVESTIGATION_NODES[activeStep]!.narrative}
+          <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
+            {active.summary}
           </p>
-
-          <div className="space-y-3 pt-2">
-            <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-wider block">
-              EVIDENCE ARTIFACTS
+          <div className="rounded-xs border border-border bg-background/70 p-4">
+            <span className="font-mono text-[10px] text-primary uppercase tracking-wider">
+              {active.evidenceLabel}
             </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {INVESTIGATION_NODES[activeStep]!.evidence.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 bg-background border border-border/80 rounded-xs space-y-1.5"
+            <ul className="mt-3 space-y-2">
+              {active.evidence.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2 text-xs sm:text-sm text-foreground/85"
                 >
-                  <div className="flex items-center justify-between">
-                    <strong className="font-mono text-xs text-foreground font-semibold">
-                      {item.name}
-                    </strong>
-                    <span className="font-mono text-[9px] px-1.5 py-0.5 bg-muted text-muted-foreground rounded-xs">
-                      {item.badge}
-                    </span>
-                  </div>
-                  <p className="font-sans text-xs text-muted-foreground leading-normal">
-                    {item.annotation}
-                  </p>
-                </div>
+                  <CheckCircle2
+                    className="size-3.5 text-primary shrink-0 mt-0.5"
+                    aria-hidden="true"
+                  />
+                  <span className="break-words">{item}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </div>
-      </div>
-
-      {/* THE MONUMENTAL BUILD DECISION REVEAL */}
-      <div className="mt-16 pt-12 border-t border-border">
-        <div className="border-l-4 border-primary pl-6 sm:pl-10 py-4 space-y-4 max-w-4xl">
-          <span className="font-mono text-xs uppercase tracking-widest text-primary font-bold">
-            05 / THE BUILD DECISION
-          </span>
-          <h3 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-foreground font-normal leading-[1.05]">
-            Build the review layer.
-            <br />
-            <em className="text-primary italic font-normal">Not another ATS.</em>
-          </h3>
-          <p className="font-sans text-sm sm:text-base text-foreground/80 leading-relaxed max-w-2xl">
-            Synthesized conclusion from the Ashby precedent, Docling extraction benchmarks, and
-            PyMuPDF AGPL checkpointing: <strong>Adopt &amp; Integrate</strong>. Deliver immediate
-            value over recruiters' existing ATS webhooks instead of wasting 9 months rebuilding
-            basic candidate pipelines.
+          <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+            {activeStep === 2 ? (
+              <Info className="size-3.5 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+            ) : activeStep === 3 ? (
+              <FileCode2 className="size-3.5 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+            ) : (
+              <ShieldAlert className="size-3.5 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
+            )}
+            <span>{active.note}</span>
           </p>
-          <div className="pt-2 flex items-center gap-3 font-mono text-[11px] text-muted-foreground">
-            <span>POSTURE: INTEGRATE</span>
-            <span>·</span>
-            <span>ESTIMATED TIME SAVED: 6–9 MONTHS</span>
-          </div>
         </div>
       </div>
     </section>

@@ -34,6 +34,22 @@ export function SiteFooter() {
           Documentation
         </a>
         <a
+          href={SITE_CONFIG.links.release}
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+        >
+          v1.1 Release <ArrowUpRight className="size-3" aria-hidden="true" />
+        </a>
+        <a
+          href={SITE_CONFIG.links.exampleLandscape}
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-foreground transition-colors inline-flex items-center gap-1"
+        >
+          Example reports <ArrowUpRight className="size-3" aria-hidden="true" />
+        </a>
+        <a
           href={SITE_CONFIG.links.codexTestEvidence}
           target="_blank"
           rel="noreferrer"

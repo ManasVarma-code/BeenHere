@@ -1458,3 +1458,94 @@ body { background:var(--background); }
 @media(prefers-reduced-motion:reduce) {
   .bh-home *, .bh-home *::before, .bh-home *::after { scroll-behavior:auto!important; animation-duration:.01ms!important; transition-duration:.01ms!important; }
 }
+
+/* Keep the editorial rhythm deliberate: distinct chapters without empty screens. */
+.bh-home #investigation,.bh-home .bh-method,.bh-home .bh-install { padding-block:64px; }
+.bh-home #investigation > div:nth-child(2) { padding:36px 0 24px; }
+.bh-home .bh-section-heading { margin-bottom:28px; }
+.bh-home .bh-section-heading > p,
+.bh-home #investigation > div:nth-child(2) p,
+.bh-home .bh-install-copy > p { color:oklch(0.76 0.018 250); }
+.bh-home #investigation .lg\:col-span-4 > div:first-child,
+.bh-home #investigation [role=tablist] button:not([aria-selected=true]),
+.bh-home .bh-install-panel .text-muted-foreground { color:oklch(0.72 0.02 250); }
+.bh-home .bh-install-layout { padding-top:34px; }
+.bh-home #investigation > div:last-child { margin-top:38px; padding-top:32px; }
+.bh-home .bh-research-sequence { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); list-style:none; margin:0; padding:0; }
+.bh-home .bh-research-stage { position:relative; min-width:0; padding:0 22px 0 0; }
+.bh-home .bh-research-stage:not(:last-child)::after { content:""; position:absolute; top:17px; left:48px; right:14px; height:1px; background:linear-gradient(90deg,oklch(0.83 0.18 122 / .72),oklch(0.94 0.01 250 / .14)); }
+.bh-stage-marker { position:relative; z-index:1; display:flex; align-items:center; gap:12px; width:max-content; padding:0 9px 0 0; color:var(--primary); background:var(--background); font:11px var(--font-mono); }
+.bh-stage-marker svg { width:15px; height:15px; }
+.bh-research-stage h3 { margin:23px 0 9px; color:var(--foreground); font:600 18px var(--font-editorial); letter-spacing:-.035em; }
+.bh-research-stage > p { min-height:66px; max-width:250px; margin:0; color:oklch(0.76 0.018 250); font-size:12px; line-height:1.7; }
+.bh-stage-output { display:flex; align-items:baseline; gap:9px; margin-top:19px; color:var(--foreground); font-size:11px; }
+.bh-stage-output span { color:oklch(0.67 0.02 250); font:9px var(--font-mono); letter-spacing:.07em; }
+.bh-home .bh-text-link { margin-top:25px; }
+@media(max-width:760px) {
+  .bh-home #investigation,.bh-home .bh-method,.bh-home .bh-install { padding-block:48px; }
+  .bh-home #investigation > div:nth-child(2) { padding:30px 0 18px; }
+  .bh-home .bh-research-sequence { grid-template-columns:1fr; gap:0; }
+  .bh-home .bh-research-stage { padding:0 0 26px 0; }
+  .bh-home .bh-research-stage:not(:last-child)::after { top:29px; bottom:-1px; left:7px; right:auto; width:1px; height:auto; background:linear-gradient(180deg,oklch(0.83 0.18 122 / .72),oklch(0.94 0.01 250 / .14)); }
+  .bh-home .bh-stage-marker { gap:13px; }
+  .bh-home .bh-research-stage h3 { margin:12px 0 5px 28px; }
+  .bh-home .bh-research-stage > p { min-height:unset; max-width:500px; margin-left:28px; }
+  .bh-home .bh-stage-output { margin:10px 0 0 28px; }
+  .bh-home #investigation > div:last-child { margin-top:28px; padding-top:23px; }
+}
+
+/* v1.1 workflow: three connected capabilities, not isolated feature cards. */
+.bh-home .bh-capability-sequence { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.bh-capability-stage { padding-right:26px; }
+.bh-capability-stage h3 { max-width:260px; }
+.bh-capability-stage > p { min-height:84px; max-width:310px; }
+.bh-capability-stage .bh-stage-marker { gap:12px; }
+.bh-stage-arrow { width:14px; height:14px; margin-left:7px; color:oklch(0.66 0.02 250); }
+.bh-capability-example { display:flex; flex-direction:column; gap:6px; margin-top:18px; padding-top:12px; border-top:1px solid oklch(0.94 0.01 250 / .1); }
+.bh-capability-example > span { color:var(--primary); font:9px var(--font-mono); letter-spacing:.045em; overflow-wrap:anywhere; }
+.bh-capability-example small { color:oklch(0.73 0.018 250); font-size:11px; line-height:1.55; }
+.bh-report-disclosure { max-width:660px; padding-left:12px; border-left:2px solid oklch(0.83 0.18 122 / .55); color:oklch(0.72 0.02 250); font:10px/1.7 var(--font-mono); }
+.bh-example-caption { margin:0; padding:0 17px 13px; color:oklch(0.67 0.02 250); font:9px/1.6 var(--font-mono); }
+.bh-example-caption a { color:var(--primary); text-decoration:underline; text-underline-offset:3px; }
+.bh-install-resources { display:flex; flex-wrap:wrap; gap:10px 17px; padding-top:12px; border-top:1px solid oklch(0.94 0.01 250 / .1); }
+.bh-install-resources a { display:inline-flex; align-items:center; gap:4px; color:oklch(0.76 0.018 250); font:10px var(--font-mono); }
+.bh-install-resources a:hover { color:var(--primary); }
+.bh-install-resources svg { width:11px; height:11px; }
+.bh-install-panel-header { flex-wrap:wrap; }
+.bh-install-command code { white-space:normal; overflow-wrap:anywhere; }
+.bh-doc-command { gap:10px; min-width:0; }
+.bh-doc-command code { min-width:0; overflow-wrap:anywhere; }
+.bh-home #investigation .lg\:col-span-8 { min-width:0; }
+.bh-home #investigation .lg\:col-span-8 li { overflow-wrap:anywhere; }
+.bh-doc-nav-mobile { display:none; }
+@media(max-width:1023px) {
+  .bh-doc-nav-mobile { display:grid; gap:7px; }
+  .bh-doc-nav-desktop { display:none; }
+}
+@media(max-width:900px) {
+  .bh-home .bh-hero { grid-template-columns:1fr; min-height:unset; }
+  .bh-workbench { width:min(100%,720px); }
+  .bh-home .bh-capability-sequence { grid-template-columns:1fr; gap:0; }
+  .bh-capability-stage { padding:0 0 26px; }
+  .bh-capability-stage:not(:last-child)::after { top:29px; bottom:-1px; left:7px; right:auto; width:1px; height:auto; background:linear-gradient(180deg,oklch(0.83 0.18 122 / .72),oklch(0.94 0.01 250 / .14)); }
+  .bh-capability-stage > p { min-height:0; max-width:540px; }
+  .bh-capability-stage h3 { max-width:unset; }
+  .bh-capability-stage .bh-stage-marker { gap:13px; }
+  .bh-stage-arrow { display:none; }
+}
+@media(max-width:480px) {
+  .bh-example-caption { padding-inline:11px; font-size:8px; }
+  .bh-report-disclosure { font-size:9px; }
+  .bh-install-panel { padding:12px; }
+  .bh-install-panel-header { align-items:flex-start; flex-direction:column; }
+  .bh-install-panel-header > div:last-child { width:100%; justify-content:flex-start; }
+  .bh-install-resources { gap:9px 13px; }
+  .bh-doc-command { align-items:flex-start; }
+  .bh-doc-command code { font-size:10px; }
+}
+@media(min-width:481px) {
+  .bh-install-command code { white-space:nowrap; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .bh-capability-stage *, .bh-example-caption * { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+}

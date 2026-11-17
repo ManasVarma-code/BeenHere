@@ -2,20 +2,25 @@ export const SITE_CONFIG = {
   name: "BeenHere",
   tagline: "Explore every angle before you build.",
   description:
-    "A free, open-source agent skill for Codex and Claude Code. Investigates existing products, open-source repositories, academic papers, adjacent patterns, and licensing risks before you write code.",
-  version: "v1.0.0-beta.1",
-  gitHubCommitMatrixVerified: "9c33e91",
-  matrixJobsCount: 18,
+    "BeenHere is an open-source Agent Skill for researching existing products, reusable code, academic work, cross-industry approaches, and integration risks before building.",
+  version: "v1.1.0",
   links: {
     github: "https://github.com/manasvignesh/BeenHere",
     githubWebsite: "https://github.com/ManasVarma-code/field-notes",
-    docs: "https://github.com/manasvignesh/BeenHere/tree/main/docs",
+    release: "https://github.com/manasvignesh/BeenHere/releases/tag/v1.1.0",
+    docs: "https://github.com/manasvignesh/BeenHere/tree/v1.1.0/docs",
+    skill: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/SKILL.md",
+    installation: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/docs/INSTALLATION.md",
+    exampleLandscape:
+      "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/examples/voice_social_platform/IDEA_LANDSCAPE.md",
+    exampleBlueprint:
+      "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/examples/voice_social_platform/INTEGRATION_BLUEPRINT.md",
     codexTestEvidence:
-      "https://github.com/manasvignesh/BeenHere/blob/main/docs/CODEX_END_TO_END_TEST.md",
-    license: "https://github.com/manasvignesh/BeenHere/blob/main/LICENSE",
-    security: "https://github.com/manasvignesh/BeenHere/blob/main/SECURITY.md",
-    changelog: "https://github.com/manasvignesh/BeenHere/blob/main/CHANGELOG.md",
-    contributing: "https://github.com/manasvignesh/BeenHere/blob/main/CONTRIBUTING.md",
+      "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/docs/CODEX_END_TO_END_TEST.md",
+    license: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/LICENSE",
+    security: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/SECURITY.md",
+    changelog: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/CHANGELOG.md",
+    contributing: "https://github.com/manasvignesh/BeenHere/blob/v1.1.0/CONTRIBUTING.md",
   },
   installCommands: {
     universal: "npx skills add manasvignesh/BeenHere",
@@ -23,25 +28,19 @@ export const SITE_CONFIG = {
     claudeCode: "npx skills add manasvignesh/BeenHere --agent claude-code",
   },
   invocations: {
-    codex: "$beenhere Research an offline-first collaborative notes app.",
-    claudeCode: "/beenhere Research an offline-first collaborative notes app.",
-    recruitmentExample: "$beenhere Research an AI-powered recruitment platform.",
+    codex: "$beenhere Research a voice-first social platform.",
+    claudeCode: "/beenhere Research a voice-first social platform.",
   },
   status: {
     codex: {
       label: "Verified",
       state: "verified" as const,
-      details: "Public GitHub installation & runtime execution verified.",
+      details: "The repository includes a Codex end-to-end execution report.",
     },
     claudeCode: {
-      label: "Prepared",
+      label: "CLI registration documented",
       state: "prepared" as const,
-      details: "Structural integration verified; live runtime test pending.",
-    },
-    ciMatrix: {
-      label: "18/18 Jobs Passing",
-      state: "passing" as const,
-      details: "Python 3.8–3.12 on Linux, macOS, & Windows (commit 9c33e91).",
+      details: "The release documentation does not claim a live runtime audit.",
     },
     license: {
       label: "MIT",
@@ -49,22 +48,15 @@ export const SITE_CONFIG = {
       details: "Free and open-source software.",
     },
     dependencies: {
-      label: "Zero Dependencies",
+      label: "Python standard library",
       state: "clean" as const,
-      details: "No third-party pip dependencies required for core skill.",
+      details: "Python 3.8+; no third-party Python packages required.",
     },
     backend: {
-      label: "No Hosted Backend",
+      label: "No BeenHere-hosted backend",
       state: "local" as const,
-      details: "Runs locally inside your coding agent using your agent's own model.",
+      details:
+        "Runs as an Agent Skill; available network and subprocess behavior depends on the agent environment.",
     },
   },
-  nav: [
-    { label: "The Method", href: "/#method" },
-    { label: "Case Files", href: "/#case-file" },
-    { label: "Comparison", href: "/#comparison" },
-    { label: "Field Notes", href: "/#notes" },
-    { label: "Install", href: "/#install" },
-    { label: "Documentation", href: "/docs" },
-  ],
 } as const;

@@ -23,13 +23,13 @@ export const Route = createFileRoute("/docs")({
       {
         name: "description",
         content:
-          "Official technical documentation for BeenHere: Codex and Claude Code installation, quick vs deep modes, dossier interpretation, and licensing checkpoints.",
+          "BeenHere v1.1 documentation: installation, cross-industry research, repository comparison, integration blueprints, and evidence labels.",
       },
       { property: "og:title", content: `Documentation — ${SITE_CONFIG.name}` },
       {
         property: "og:description",
         content:
-          "Official technical documentation for BeenHere: installation, research modes, and architectural output interpretation.",
+          "BeenHere v1.1: installation, source-evidence labels, repository comparison, and integration blueprint guidance.",
       },
       { property: "og:type", content: "article" },
       { property: "og:image", content: "/og-image.svg" },
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/docs")({
       {
         name: "twitter:description",
         content:
-          "Official technical documentation for BeenHere: installation, research modes, and architectural output interpretation.",
+          "BeenHere v1.1: installation, source-evidence labels, repository comparison, and integration blueprint guidance.",
       },
     ],
   }),
@@ -70,7 +70,11 @@ const DOC_NAV: DocNavEntry[] = [
   { id: "research-modes", label: "Quick vs. Deep Modes", category: "Methodology" },
   { id: "reading-outputs", label: "Understanding Dossiers", category: "Methodology" },
   { id: "why-not-github", label: "Why Not Just Search GitHub?", category: "Methodology" },
-  { id: "case-offline-notes", label: "Case File: Offline Notes", category: "Archives & Reference" },
+  {
+    id: "case-offline-notes",
+    label: "Case File: Voice Platform",
+    category: "Archives & Reference",
+  },
   { id: "licensing-limits", label: "Licensing Limitations", category: "Archives & Reference" },
   { id: "network-troubleshooting", label: "Network & Sandbox", category: "Archives & Reference" },
   { id: "contributing", label: "Contributing & Testing", category: "Archives & Reference" },
@@ -125,7 +129,7 @@ function DocsPage() {
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 font-mono text-xs text-primary hover:underline"
             >
-              Raw Documentation on GitHub <ArrowUpRight className="size-3.5" aria-hidden="true" />
+              v1.1 Docs on GitHub <ArrowUpRight className="size-3.5" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -137,7 +141,27 @@ function DocsPage() {
             className="lg:col-span-3 lg:border-r lg:border-border lg:pr-6"
             aria-label="Documentation navigation"
           >
-            <div className="sticky top-24 space-y-6">
+            <div className="bh-doc-nav-mobile">
+              <label
+                htmlFor="docs-section-select"
+                className="font-mono text-[10px] uppercase text-muted-foreground"
+              >
+                Jump to section
+              </label>
+              <select
+                id="docs-section-select"
+                value={activeSection}
+                onChange={(event) => setActiveSection(event.target.value as DocSectionId)}
+                className="w-full h-11 px-3 border border-border bg-card text-foreground font-mono text-xs rounded-xs"
+              >
+                {DOC_NAV.map((entry) => (
+                  <option key={entry.id} value={entry.id}>
+                    {entry.category} / {entry.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="bh-doc-nav-desktop sticky top-24 space-y-6">
               {["Setup", "Methodology", "Archives & Reference"].map((category) => (
                 <div key={category} className="space-y-1">
                   <span className="font-mono text-[10px] uppercase font-bold text-muted-foreground tracking-wider block px-2 mb-1">
@@ -169,7 +193,7 @@ function DocsPage() {
               <div className="pt-4 border-t border-border font-mono text-[10px] text-muted-foreground space-y-1">
                 <div>REPO: manasvignesh/BeenHere</div>
                 <div>LICENSE: MIT</div>
-                <div>CI: 18/18 JOBS PASSING</div>
+                <div>RELEASE: {SITE_CONFIG.version}</div>
               </div>
             </div>
           </aside>
@@ -184,10 +208,10 @@ function DocsPage() {
                   </span>
                   <h2 className="font-editorial text-3xl text-foreground mt-1">Getting Started</h2>
                   <p className="mt-2 text-sm text-foreground/80 leading-relaxed font-sans">
-                    BeenHere is an open-source Agent Skill designed to run directly inside supported
-                    coding agents. Before writing custom code for a new product feature, BeenHere
-                    surveys existing implementations, audits reusable open-source repositories,
-                    uncovers cross-industry patterns, and highlights licensing risks.
+                    BeenHere is an open-source Agent Skill for researching existing products,
+                    repositories, papers, and approaches from adjacent industries. Version 1.1 adds
+                    cross-industry transfer analysis, side-by-side repository comparison, and
+                    practical integration blueprints.
                   </p>
                 </div>
 
@@ -206,26 +230,26 @@ function DocsPage() {
                     <li className="flex items-start gap-2">
                       <span className="text-primary font-bold">2.</span>
                       <span>
-                        <strong>Read-only by default:</strong> Analyzes public sources and
-                        repository trees; does not execute untrusted third-party code.
+                        <strong>Evidence before conclusions:</strong> Marks source-backed findings,
+                        inferences, and unverified claims separately.
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary font-bold">3.</span>
                       <span>
-                        <strong>Zero mandatory subscriptions:</strong> No proprietary BeenHere API
-                        keys or hosted backends.
+                        <strong>No BeenHere-hosted backend:</strong> BeenHere is a skill, not a
+                        hosted AI product. Available tools and network access depend on the agent.
                       </span>
                     </li>
                   </ul>
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="font-editorial text-xl text-foreground">Fastest Quickstart</h3>
+                  <h3 className="font-editorial text-xl text-foreground">Quickstart</h3>
                   <p className="text-xs text-muted-foreground font-mono">
-                    Run the universal skill installer in your terminal:
+                    Install the public Agent Skill with:
                   </p>
-                  <div className="bg-card p-3 border border-border rounded-xs flex items-center justify-between font-mono text-xs">
+                  <div className="bh-doc-command bg-card p-3 border border-border rounded-xs flex items-center justify-between font-mono text-xs">
                     <code>{SITE_CONFIG.installCommands.universal}</code>
                     <button
                       type="button"
@@ -241,6 +265,35 @@ function DocsPage() {
                     </button>
                   </div>
                 </div>
+                <nav
+                  className="flex flex-wrap gap-x-5 gap-y-3 border-t border-border pt-4 text-xs font-mono"
+                  aria-label="Version 1.1 resources"
+                >
+                  <a
+                    className="inline-flex items-center gap-1 text-primary hover:underline"
+                    href={SITE_CONFIG.links.release}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Release notes <ArrowUpRight className="size-3" aria-hidden="true" />
+                  </a>
+                  <a
+                    className="inline-flex items-center gap-1 text-primary hover:underline"
+                    href={SITE_CONFIG.links.skill}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Skill specification <ArrowUpRight className="size-3" aria-hidden="true" />
+                  </a>
+                  <a
+                    className="inline-flex items-center gap-1 text-primary hover:underline"
+                    href={SITE_CONFIG.links.exampleLandscape}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Example reports <ArrowUpRight className="size-3" aria-hidden="true" />
+                  </a>
+                </nav>
               </section>
             )}
 
@@ -254,9 +307,9 @@ function DocsPage() {
                     OpenAI Codex Installation
                   </h2>
                   <p className="mt-2 text-sm text-foreground/80 leading-relaxed font-sans">
-                    BeenHere has been verified end-to-end inside OpenAI Codex. The skill registers
-                    as a natural command extension, allowing you to trigger deep research runs
-                    directly from your Codex conversation prompt.
+                    The public repository includes an end-to-end Codex execution audit. It records
+                    the environment used and a restricted subprocess/network case; available
+                    behavior can still vary across agent sandboxes.
                   </p>
                 </div>
 
@@ -265,8 +318,8 @@ function DocsPage() {
                     <Check className="size-4" /> VERIFIED MILESTONE
                   </div>
                   <p className="text-xs text-foreground/90">
-                    Public GitHub installation and runtime execution have been verified on OpenAI
-                    Codex. Review the official execution log in{" "}
+                    A repository end-to-end report records installation and execution in OpenAI
+                    Codex, including a restricted subprocess/network case. Review the report in{" "}
                     <a
                       href={SITE_CONFIG.links.codexTestEvidence}
                       target="_blank"
@@ -344,8 +397,8 @@ function DocsPage() {
                     INTEGRATION STATUS
                   </div>
                   <p className="text-xs text-foreground/80">
-                    Structural compatibility is verified. Live authenticated runtime execution in
-                    Claude Code is scheduled for final verification in an upcoming patch release.
+                    The v1.1 documentation describes Agent Skills CLI registration. It does not
+                    claim a live authenticated Claude Code runtime audit.
                   </p>
                 </div>
 
@@ -412,14 +465,14 @@ function DocsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="border border-border bg-card p-4 rounded-xs space-y-2">
                     <span className="font-mono text-xs font-bold text-primary block">
-                      QUICK PASS (~60s)
+                      QUICK EXPLORATION
                     </span>
                     <h3 className="font-editorial text-lg text-foreground">
                       Landscape &amp; Prior Art
                     </h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Surveys the top commercial products, popular open-source packages, and flags
-                      obvious copyleft licensing risks. Ideal for initial concept vetting.
+                      Starts a focused prior-art search across relevant products, repositories, and
+                      adjacent approaches. Findings depend on the question and accessible sources.
                     </p>
                     <div className="mt-2 pt-2 border-t border-border font-mono text-[10px] text-foreground/80">
                       <code>$beenhere "Quick scan: WebRTC collaborative whiteboard"</code>
@@ -428,15 +481,15 @@ function DocsPage() {
 
                   <div className="border border-border bg-card p-4 rounded-xs space-y-2">
                     <span className="font-mono text-xs font-bold text-primary block">
-                      DEEP AUDIT (Comprehensive)
+                      DEEP INVESTIGATION
                     </span>
                     <h3 className="font-editorial text-lg text-foreground">
                       Full Architectural Dossier
                     </h3>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Deeply audits candidate repositories for commit recency, breaking changes,
-                      sub-dependency licenses, adjacent technical analogies, and formulates a build
-                      posture.
+                      Uses the full research protocol to compare candidate repositories, inspect
+                      interfaces and dependencies, evaluate transferability, and draft an
+                      integration blueprint with open verification questions.
                     </p>
                     <div className="mt-2 pt-2 border-t border-border font-mono text-[10px] text-foreground/80">
                       <code>$beenhere "Deep audit: Resume parsing pipeline with Docling"</code>
@@ -456,8 +509,8 @@ function DocsPage() {
                     Understanding Research Dossiers
                   </h2>
                   <p className="mt-2 text-sm text-foreground/80 leading-relaxed font-sans">
-                    BeenHere produces a standardized research dossier divided into four logical
-                    evidence sections, culminating in an actionable build posture recommendation.
+                    Research output can include an idea landscape and an integration blueprint. The
+                    exact sections depend on the task and available evidence.
                   </p>
                 </div>
 
@@ -478,8 +531,8 @@ function DocsPage() {
                       02 · REUSABLE REPOSITORIES
                     </span>
                     <p className="mt-1 text-xs text-foreground/80">
-                      Lists specific candidate open-source projects, their primary licenses, star
-                      velocity, and architectural fit for your proposed stack.
+                      Compares candidate repositories by functional overlap, maintenance signals,
+                      exported interfaces, dependencies, compatibility, and license considerations.
                     </p>
                   </div>
 
@@ -488,9 +541,9 @@ function DocsPage() {
                       03 · ADJACENT DISCIPLINES
                     </span>
                     <p className="mt-1 text-xs text-foreground/80">
-                      Draws analogies from outside the immediate product category (e.g. database
-                      commit logs, compiler ASTs, biological sequence alignments) to solve tricky
-                      algorithmic challenges.
+                      Extracts underlying mechanisms and evaluates cross-industry candidates. The
+                      report distinguishes possible transfer from conceptual inspiration and flags
+                      when no transfer is needed.
                     </p>
                   </div>
 
@@ -499,9 +552,9 @@ function DocsPage() {
                       04 · BUILD POSTURE
                     </span>
                     <p className="mt-1 text-xs text-foreground/80">
-                      Concludes with one of five explicit engineering trajectories:{" "}
-                      <strong>ADOPT</strong>, <strong>INTEGRATE</strong>, <strong>EXTEND</strong>,{" "}
-                      <strong>FORK</strong>, or <strong>BUILD FROM SCRATCH</strong>.
+                      Recommends a qualified posture such as adopt, integrate through an API,
+                      extract a component, reimplement cleanly, reject an incompatible candidate, or
+                      build custom.
                     </p>
                   </div>
                 </div>
@@ -539,14 +592,14 @@ function DocsPage() {
                   </div>
                   <div className="p-4 space-y-1">
                     <span className="font-mono text-primary font-bold">
-                      02 · License &amp; Dependency Checkpoints
+                      02 · License &amp; Dependency Review
                     </span>
                     <p className="text-foreground/90 font-medium">
-                      Proactive AGPL &amp; Copyleft Audits
+                      Qualified Evidence &amp; Risk Notes
                     </p>
                     <p className="text-muted-foreground">
-                      Code search displays declared root badges. BeenHere checks nested dependencies
-                      and flags viral copyleft restrictions (e.g., PyMuPDF dual-licensing).
+                      Repository comparisons examine declared/source license evidence and relevant
+                      dependencies. Legal conclusions remain qualified and require upstream review.
                     </p>
                   </div>
                   <div className="p-4 space-y-1">
@@ -557,8 +610,8 @@ function DocsPage() {
                       Sideways Architectural Borrowing
                     </p>
                     <p className="text-muted-foreground">
-                      Bridges your inquiry to settled patterns in neighboring industries—such as
-                      borrowing CRDT consensus from distributed databases for collaborative editing.
+                      Tests candidate mechanisms against assumptions and operational constraints;
+                      weak analogies can be rejected instead of presented as reusable solutions.
                     </p>
                   </div>
                   <div className="p-4 space-y-1">
@@ -569,8 +622,8 @@ function DocsPage() {
                       Actionable Posture Recommendation
                     </p>
                     <p className="text-muted-foreground">
-                      Rather than returning 50 unranked links, BeenHere formulates an actionable
-                      engineering call: Adopt, Fork, Integrate, Extend, or Build from scratch.
+                      Findings can be turned into integration boundaries, proposed adapter
+                      contracts, verification steps, and unresolved questions.
                     </p>
                   </div>
                 </div>
@@ -584,59 +637,84 @@ function DocsPage() {
                     SECTION 07
                   </span>
                   <h2 className="font-editorial text-3xl text-foreground mt-1">
-                    Case Study: Offline-First Collaborative Notes App
+                    Case File: Voice-First Social Platform
                   </h2>
                   <p className="mt-2 text-sm text-foreground/80 leading-relaxed font-sans">
-                    A representative architectural synthesis for a local-first rich-text notes
-                    application.
+                    An example from the public repository follows a voice-first social idea through
+                    existing components, adjacent mechanisms, repository comparison, and a proposed
+                    engineering direction.
                   </p>
                 </div>
 
                 <div className="border border-border bg-card p-5 rounded-xs space-y-4 text-xs">
                   <div className="space-y-1">
                     <span className="font-mono text-[10px] text-primary uppercase font-bold">
-                      RESEARCH INQUIRY
+                      IDEA → EXISTING SOLUTIONS
                     </span>
                     <p className="text-foreground font-semibold text-sm">
-                      &ldquo;What is the optimal CRDT, persistence, and synchronization stack for an
-                      offline-first collaborative editor?&rdquo;
+                      Voice-first group conversations with persistent AI personas and structured
+                      idea evaluation.
                     </p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-border">
                     <div className="space-y-1">
                       <strong className="text-foreground font-mono uppercase text-[10px] block">
-                        Candidate CRDTs
+                        Cross-industry leads
                       </strong>
                       <p className="text-muted-foreground leading-relaxed">
-                        • <strong>Yjs (MIT):</strong> Mature ecosystem, battle-tested ProseMirror
-                        &amp; TipTap bindings.
-                        <br />• <strong>Automerge / Loro (MIT/Apache):</strong> High-performance
-                        Rust/Wasm CRDT with compact state encoding.
+                        Façade beat management, avionics priority arbitration, and speculative
+                        pre-computation are described by the report as conceptual inspiration—not
+                        code transfers.
                       </p>
                     </div>
 
                     <div className="space-y-1">
                       <strong className="text-foreground font-mono uppercase text-[10px] block">
-                        Persistence &amp; Sync
+                        Repository comparison
                       </strong>
                       <p className="text-muted-foreground leading-relaxed">
-                        • <strong>SQLite-WASM + OPFS:</strong> Sub-millisecond local reads and ACID
-                        durability.
-                        <br />• <strong>Lightweight WebSocket Relay:</strong> Avoids complex WebRTC
-                        STUN/TURN overhead for team sync.
+                        The example blueprint marks Pipecat pipeline interfaces, Letta’s client API,
+                        and AI Town conversation-state code as source evidence, while qualifying
+                        integration boundaries.
                       </p>
                     </div>
                   </div>
 
                   <div className="pt-3 border-t border-border bg-background p-3 rounded-xs space-y-1">
                     <span className="font-mono text-[10px] text-primary uppercase font-bold">
-                      SYNTHESIZED DIRECTIVE
+                      PROPOSED ENGINEERING DIRECTION
                     </span>
                     <p className="text-foreground font-medium">
-                      EXTEND: Pair Yjs + TipTap with SQLite-WASM (OPFS), synchronized via a
-                      stateless WebSocket relay with automatic document compaction.
+                      Integrate a voice pipeline and memory API, extract a suitable conversation
+                      state pattern, and build the platform-specific turn controller. Validate the
+                      interfaces and assumptions in the target stack.
                     </p>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Provenance: the linked report is dated 12–13 Nov 2026 and identifies its
+                    BeenHere version as v0.2.0. It is an authentic repository example, not a v1.1
+                    execution record. Its source tags describe that report’s inspection; re-check
+                    current upstream repositories before relying on the findings.
+                  </p>
+                  <div className="flex flex-wrap gap-4 pt-1">
+                    <a
+                      href={SITE_CONFIG.links.exampleLandscape}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-primary hover:underline"
+                    >
+                      Open idea landscape <ArrowUpRight className="size-3" aria-hidden="true" />
+                    </a>
+                    <a
+                      href={SITE_CONFIG.links.exampleBlueprint}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-primary hover:underline"
+                    >
+                      Open integration blueprint{" "}
+                      <ArrowUpRight className="size-3" aria-hidden="true" />
+                    </a>
                   </div>
                 </div>
               </section>
@@ -662,11 +740,9 @@ function DocsPage() {
                     <ShieldAlert className="size-4" /> IMPORTANT LEGAL NOTICE
                   </div>
                   <p className="text-xs text-foreground/90 leading-relaxed">
-                    BeenHere provides technical licensing analysis and surfaces potential copyleft
-                    or dual-licensing flags (such as AGPL-3.0 or SSPL). However, BeenHere reports do
-                    not constitute formal legal advice. Developers and organizations must review
-                    full upstream license terms and consult legal counsel when incorporating
-                    third-party code into proprietary products.
+                    BeenHere reports license evidence and potential obligations; they are not legal
+                    advice. License effects depend on the actual license text, use, and
+                    distribution. Review upstream terms and seek legal advice where needed.
                   </p>
                 </div>
 
@@ -676,8 +752,8 @@ function DocsPage() {
                   </strong>
                   <ul className="mt-2 space-y-1.5 font-mono text-[11px] text-muted-foreground">
                     <li>
-                      • Permissive (MIT, Apache 2.0, BSD): Generally safe for commercial
-                      incorporation.
+                      • MIT, Apache 2.0, BSD: Often permissive, subject to each license’s notices
+                      and conditions.
                     </li>
                     <li>
                       • Strong Copyleft (GPL, AGPL): May require open-sourcing host application
@@ -702,8 +778,9 @@ function DocsPage() {
                     Network &amp; Sandbox Troubleshooting
                   </h2>
                   <p className="mt-2 text-sm text-foreground/80 leading-relaxed font-sans">
-                    Because BeenHere executes inside your coding agent, it respects your agent's
-                    host sandbox constraints and network proxy rules.
+                    BeenHere uses Python tools and the host agent’s available tools. Some coding
+                    agent sandboxes restrict subprocess execution or network access, so not every
+                    environment can run every tool path.
                   </p>
                 </div>
 
@@ -713,9 +790,9 @@ function DocsPage() {
                       Offline / Air-Gapped Environments:
                     </strong>
                     <p className="text-muted-foreground">
-                      In air-gapped environments, BeenHere can analyze local repository trees and
-                      cached package manifests, but live GitHub web search and external package
-                      registry checks will be unavailable.
+                      Without network access, live repository and academic searches are unavailable.
+                      The agent may still review local files or pre-generated evidence when those
+                      are accessible in its environment.
                     </p>
                   </div>
 
@@ -755,8 +832,8 @@ function DocsPage() {
                     Running Tests Locally
                   </h3>
                   <p className="text-xs text-muted-foreground">
-                    The BeenHere skill core is verified with Python's unittest suite across 18
-                    environment matrixes:
+                    The v1.1.0 repository provides its own Python test suite and cross-platform CI.
+                    Follow the upstream contribution guide for the current test workflow:
                   </p>
                   <div className="bg-background p-2.5 border border-border rounded-xs font-mono text-xs text-foreground">
                     <code>python -m unittest discover tests/</code>

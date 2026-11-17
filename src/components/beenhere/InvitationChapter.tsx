@@ -8,7 +8,6 @@ type AgentKey = "universal" | "codex" | "claudeCode";
 export function InvitationChapter() {
   const [activeAgent, setActiveAgent] = useState<AgentKey>("universal");
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
-
   const activeCommand = SITE_CONFIG.installCommands[activeAgent];
 
   async function handleCopy(cmd: string) {
@@ -20,25 +19,19 @@ export function InvitationChapter() {
   }
 
   return (
-    <section
-      className="bh-install"
-      id="invitation"
-      aria-labelledby="invitation-title"
-    >
-      {/* Chapter Marker */}
+    <section className="bh-install" id="invitation" aria-labelledby="invitation-title">
       <div className="bh-chapter-line flex items-center justify-between pb-8 border-b border-border text-[11px] font-mono text-muted-foreground uppercase tracking-widest">
         <span className="flex items-center gap-2">
           <span className="text-primary font-bold">04</span>
           <span className="text-foreground">Installation</span>
         </span>
-        <span>INSTALLATION &amp; ACCESS</span>
+        <span>AGENT SKILL · {SITE_CONFIG.version}</span>
       </div>
 
       <div className="bh-install-layout grid grid-cols-1 lg:grid-cols-12 gap-12 pt-12 items-end">
-        {/* Left Column: Bold Headline */}
         <div className="bh-install-copy lg:col-span-6 space-y-6">
           <span className="font-mono text-xs uppercase tracking-wider text-primary font-bold">
-          INSTALL FOR YOUR AGENT
+            OPEN SOURCE · PYTHON 3.8+
           </span>
           <h2
             id="invitation-title"
@@ -49,76 +42,58 @@ export function InvitationChapter() {
             <em className="text-primary italic font-normal">Research on demand.</em>
           </h2>
           <p className="font-sans text-base text-foreground/80 leading-relaxed max-w-lg">
-            Install BeenHere into your coding agent with a single command. Free, open-source under
-            the MIT License, with zero mandatory API keys or proprietary hosted backends.
+            BeenHere is an open-source Agent Skill, not a hosted AI application. Its Python tools
+            use the runtime and network access available in your coding-agent environment; some
+            sandboxes may require the documented host-agent fallback.
           </p>
 
           <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-4 text-xs font-mono text-muted-foreground">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="size-3.5 text-primary" aria-hidden="true" />
-              <span>Codex: Runtime Verified</span>
+              <span>Codex: execution report available</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="size-3.5 text-muted-foreground" aria-hidden="true" />
-              <span>Claude Code: Prepared</span>
+              <span>Claude Code: CLI registration documented</span>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Tactile Terminal Box */}
         <div className="bh-install-panel lg:col-span-6 border border-border bg-card p-6 rounded-xs space-y-4">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <div className="flex items-center gap-2 font-mono text-xs text-foreground font-semibold">
+          <div className="bh-install-panel-header flex items-center justify-between border-b border-border pb-3 gap-3">
+            <div className="flex items-center gap-2 font-mono text-xs text-foreground font-semibold shrink-0">
               <Terminal className="size-3.5 text-primary" aria-hidden="true" />
               <span>TERMINAL INSTALLATION</span>
             </div>
-
-            {/* Agent Selector */}
             <div className="flex items-center gap-1 font-mono text-[11px]">
-              <button
-                type="button"
-                onClick={() => setActiveAgent("universal")}
-                className={`px-2 py-0.5 rounded-xs border transition-colors cursor-pointer ${
-                  activeAgent === "universal"
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border text-muted-foreground hover:text-foreground"
-                }`}
-                aria-pressed={activeAgent === "universal"}
-              >
-                Auto
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveAgent("codex")}
-                className={`px-2 py-0.5 rounded-xs border transition-colors cursor-pointer ${
-                  activeAgent === "codex"
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border text-muted-foreground hover:text-foreground"
-                }`}
-                aria-pressed={activeAgent === "codex"}
-              >
-                Codex
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveAgent("claudeCode")}
-                className={`px-2 py-0.5 rounded-xs border transition-colors cursor-pointer ${
-                  activeAgent === "claudeCode"
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border text-muted-foreground hover:text-foreground"
-                }`}
-                aria-pressed={activeAgent === "claudeCode"}
-              >
-                Claude Code
-              </button>
+              {(
+                [
+                  ["universal", "Auto"],
+                  ["codex", "Codex"],
+                  ["claudeCode", "Claude Code"],
+                ] as const
+              ).map(([key, label]) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setActiveAgent(key)}
+                  className={`px-2 py-1 rounded-xs border transition-colors cursor-pointer ${
+                    activeAgent === key
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "border-border text-muted-foreground hover:text-foreground"
+                  }`}
+                  aria-pressed={activeAgent === key}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Command display */}
-          <div className="flex items-center justify-between gap-3 bg-background p-3.5 border border-border/80 rounded-xs">
-            <div className="font-mono text-xs sm:text-sm text-foreground overflow-x-auto flex items-center gap-2">
+          <div className="flex items-center justify-between gap-2 bg-background p-3 border border-border/80 rounded-xs min-w-0">
+            <div className="bh-install-command font-mono text-[10px] sm:text-xs text-foreground flex items-center gap-2 min-w-0">
               <span className="text-primary font-bold select-none">$</span>
-              <code className="whitespace-nowrap">{activeCommand}</code>
+              <code className="select-all">{activeCommand}</code>
             </div>
             <button
               type="button"
@@ -135,10 +110,9 @@ export function InvitationChapter() {
             </button>
           </div>
 
-          {/* Example prompt */}
           <div className="text-[11px] font-mono text-muted-foreground space-y-1">
-            <span>Example Invocation:</span>
-            <div className="bg-background/60 p-2 border border-border/60 rounded-xs text-foreground/90">
+            <span>Example request:</span>
+            <div className="bg-background/60 p-2 border border-border/60 rounded-xs text-foreground/90 break-words">
               <code>{SITE_CONFIG.invocations.codex}</code>
             </div>
           </div>
@@ -150,10 +124,21 @@ export function InvitationChapter() {
               rel="noreferrer"
               className="text-primary hover:underline inline-flex items-center gap-1"
             >
-              View Repository on GitHub <ArrowUpRight className="size-3" aria-hidden="true" />
+              View repository <ArrowUpRight className="size-3" aria-hidden="true" />
             </a>
-            <span>MIT LICENSE</span>
+            <span>RELEASE {SITE_CONFIG.version} · MIT</span>
           </div>
+          <nav className="bh-install-resources" aria-label="BeenHere release resources">
+            <a href={SITE_CONFIG.links.release} target="_blank" rel="noreferrer">
+              Release notes <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a href={SITE_CONFIG.links.skill} target="_blank" rel="noreferrer">
+              Skill docs <ArrowUpRight aria-hidden="true" />
+            </a>
+            <a href={SITE_CONFIG.links.exampleLandscape} target="_blank" rel="noreferrer">
+              Example reports <ArrowUpRight aria-hidden="true" />
+            </a>
+          </nav>
         </div>
       </div>
     </section>
